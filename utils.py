@@ -52,12 +52,12 @@ def load_wapo(wapo_jl_path: Union[str, os.PathLike]) -> Iterator[Dict]:
                 # print(cont)
                 if cont and "subtype" in cont and cont["subtype"] == "paragraph":
                     content = content +"</br>"+ re.sub('<.*?>','',cont['content'])     #build text content from paragraphs
-            if not "title" in doc:
-                doc["title"] = "NO TITLE FOUND"
-                print(doc)
+            if not "title" in doc or not doc["title"]:
+                doc["title"] = ""
+
             out ={                                                      #build dictionary for document
                 "id":i,
-                "title":doc["title"],
+                "title":re.sub('<.*?>','',doc["title"]),
                 "author":doc["author"],
                 "published_date":doc["published_date"],
                 "content_str": content

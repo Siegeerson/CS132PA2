@@ -57,7 +57,8 @@ class TextProcessing:
         :return:
         """
         # TODO: Why pass in title?
-        tokens = word_tokenize(content)
+
+        tokens = word_tokenize(content) + word_tokenize(title)
         out = set()
         stops = set()
         for token in tokens:
